@@ -10,7 +10,7 @@ namespace Online_Learning_Platform.Models {
         public int EnrollmentCount { get; set; }
         public string ImageURL { get; set; }
 
-        public User Instructor { get; set; }
-        public int InstructorId { get; set; }
+        public User User { get; set; }
+        public int? UserID { get; set; }
     }
 }
