@@ -1,8 +1,49 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout.cshtml"; // Assuming you have a layout file
+    Page.Title = "Online Learning Platform";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Page.Title</title>
+    <!-- Add your CSS styles and scripts here -->
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Your navigation menu here -->
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Online Learning Platform</h1>
+            <p>Learn, grow, and achieve your goals.</p>
+            <a href="/courses" class="btn btn-primary">Explore Courses</a>
+        </section>
+
+        <section class="featured-courses">
+            <h2>Featured Courses</h2>
+            <div class="course-card">
+                <!-- Display featured courses here -->
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="step">
+                <!-- Describe the learning process in steps -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Your footer content here -->
+    </footer>
+
+    <!-- Add your JavaScript scripts here -->
+</body>
+</html>
