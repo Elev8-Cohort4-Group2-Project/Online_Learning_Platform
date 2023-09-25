@@ -1,0 +1,47 @@
+@model List<DashboardViewModel>
+
+    <h1>Admin Dashboard</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Enrolled Courses</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var studentData in Model)
+        {
+            <tr>
+                <td>@studentData.Student.UserName</td>
+                <td>
+                    <ul>
+                        @foreach (var course in studentData.EnrolledCourses)
+                        {
+                        <li>@course.Title</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <!-- Common admin actions for each student -->
+                    <a href="#" class="btn btn-primary">View Profile</a>
+                    <a href="#" class="btn btn-danger">Remove Student</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <!-- Additional admin features -->
+    <div class="admin-features">
+        <h2>Admin Features</h2>
+        <ul>
+            <li>
+                <a href="/Admin/CreateCourse" class="btn btn-success">Create New Course</a>
+            </li>
+            <li>
+                <a href="/Admin/ManageUsers" class="btn btn-info">Manage Users</a>
+            </li>
+        </ul>
+    </div>
