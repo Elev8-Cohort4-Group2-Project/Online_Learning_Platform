@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230925104859_Initial")]
-    partial class Initial
+    [Migration("20230925193920_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
