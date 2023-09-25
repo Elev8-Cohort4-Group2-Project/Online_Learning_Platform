@@ -1,0 +1,27 @@
+﻿@model LMS_Clone.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container">
+    <div class="row">
+        <!-- Column for the image (left side) -->
+        <div class="col-md-5">
+            <img src="https://media.istockphoto.com/id/1265965042/tr/vekt%C3%B6r/matematik-teorisi-s%C4%B1n%C4%B1f-tebe%C5%9Fir-tahtas%C4%B1nda-matematik-hesab%C4%B1-cebir-ve-geometri-bilimi-el.jpg?s=1024x1024&w=is&k=20&c=aHp7kkRESOKqyVkp30-0l14mnLWA8z9fYKniKf6HT60=" class="img-fluid" alt="Course Image">
+        </div>
+
+        <!-- Column for course name, description, and instructor (right side) -->
+        <div class="col-md-7">
+            <h1>@Model.Title</h1>
+            <p>@Model.Description</p>
+
+            <!-- Enrollment count (italic)
+    <p><em>Enrollment Count: Model.EnrollmentCount</em></p>
+    <p><em>Instructor:<strong> ViewData["InstructorName"]</strong></em></p>    Deleteded at symbol, cant comment with it
+        -->
+            <!-- Instructor -->
+            <!-- Add more course details here -->
+        </div>
+    </div>
+</div>

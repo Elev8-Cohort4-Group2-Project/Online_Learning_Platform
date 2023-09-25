@@ -1,0 +1,32 @@
+﻿@model List<LMS_Clone.Models.Course>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    /* Custom CSS for controlling image size */
+    .card-img-custom {
+        max-height: 200px;
+        width: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in Model) {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://media.istockphoto.com/id/1265965042/tr/vekt%C3%B6r/matematik-teorisi-s%C4%B1n%C4%B1f-tebe%C5%9Fir-tahtas%C4%B1nda-matematik-hesab%C4%B1-cebir-ve-geometri-bilimi-el.jpg?s=1024x1024&w=is&k=20&c=aHp7kkRESOKqyVkp30-0l14mnLWA8z9fYKniKf6HT60=" class="card-img-top card-img-custom" alt="Image Description">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                        <a asp-controller="Home" asp-action="Details" asp-route-obj="Course"  class="btn btn-primary">Learn More</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
