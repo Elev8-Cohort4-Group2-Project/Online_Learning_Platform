@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LMS_Clone.Models; // Adjust the namespace accordingly
+using LMS_Clone.Models; 
 
 [Authorize(Roles = "Admin")] // Restrict access to admin role only
 public class AdminController : Controller
 {
-    private readonly ApplicationDbContext _context; // Replace with your DbContext
+    private readonly AppDbContext _context; 
 
     public AdminController(ApplicationDbContext context)
     {
@@ -22,7 +22,7 @@ public class AdminController : Controller
         // Retrieve a list of students and the courses they are enrolled in
 
         var studentsWithCourses = await _context.Users
-            .Include(u => u.Courses) // Assuming you have a navigation property called "Courses" in your ApplicationUser class
+            .Include(u => u.Courses) 
             .Where(u => u.Roles.Any(r => r.Role.Name == "Student"))
             .Select(user => new DashboardViewModel
             {
