@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using System.Security.Claims;
 
 namespace LMS_Clone.Controllers {
 
@@ -48,18 +49,22 @@ namespace LMS_Clone.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-        /*
+        
         public IActionResult Enroll(int id) {
             var course = _context.Courses.Find(id);
             CourseEnrollment enrollment = new CourseEnrollment();
             enrollment.CourseID = id;
-            enrollment.StudentID = User.Identity.GetUserId();
+            enrollment.StudentID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            enrollment.CompletionStatus = "0";
+            enrollment.Grade = "0";
+            enrollment.RegistrationStatus = "Registered";
+            enrollment.Remark = "";
             _context.CourseEnrollments.Add(enrollment);
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
-        */
+        
        
         public async Task<IActionResult> Details(int? id) {
             if (id == null) {

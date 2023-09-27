@@ -21,7 +21,6 @@ namespace LMS_Clone.Controllers {
             _userManager = userManager;
         }
 
-
         public async Task<IActionResult> Index() {
 
 
