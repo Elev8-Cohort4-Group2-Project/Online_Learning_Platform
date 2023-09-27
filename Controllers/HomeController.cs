@@ -14,13 +14,10 @@ namespace LMS_Clone.Controllers {
         }
 
         public IActionResult Index() {
-            List<Course> allCourses = _context.Courses.ToList();
+            var allCourses = _context.Courses.ToList();
             return View(allCourses);
         }
 
-        public IActionResult Details(Course course) {
-            return View(course);
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {

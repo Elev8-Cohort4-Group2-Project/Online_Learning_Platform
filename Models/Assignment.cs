@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS_Clone.Models {
     public class Assignment : BaseEntity {
@@ -9,7 +10,7 @@ namespace LMS_Clone.Models {
         }
 
         [Key]
-        public int assignmentId { get; set; }
+        public int AssignmentID { get; set; }
         public int CourseID { get; set; }
         public int title { get; set; }
         public int description { get; set; }

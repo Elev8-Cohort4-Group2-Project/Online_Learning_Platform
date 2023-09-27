@@ -1,4 +1,4 @@
-﻿using LMS_Clone.Data;
+﻿ using LMS_Clone.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +10,7 @@ namespace LMS_Clone.Models {
             creationTime = DateTime.Now;
         }
 
-        [Key] // Primary Key
+        [Key]
         public int CourseID { get; set; }
 
         [MaxLength(100)] // Max Length 100 karakter
@@ -27,9 +27,10 @@ namespace LMS_Clone.Models {
 
         public int OverallScore { get; set; }
 
-        [ForeignKey("InstructorID")] // Foreign Key
+        [ForeignKey("Instructor")] // Foreign Key
+        public string InstructorId { get; set; }
         public virtual User Instructor { get; set; }
-        public string Id { get; set; }
+        
 
         public ICollection<CourseResource> CourseResources { get; set; }
         public ICollection<CourseAssignment> CourseAssignments { get; set; }

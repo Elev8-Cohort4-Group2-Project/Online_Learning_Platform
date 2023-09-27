@@ -1,5 +1,7 @@
 ﻿@model List<Course>
 
+<a asp-controller="Course" asp-action="Create" class="btn btn-primary">Create New Course</a>
+
 <div class="container">
     <table class="table table-bordered">
         <thead>
@@ -8,6 +10,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +20,14 @@
                     <td>@obj.Title</td>
                     <td>@obj.Description</td>
                     <td>@obj.Category</td>
+                    <td>
+                        <a asp-controller="Course" asp-action="Details" asp-route-id="@obj.CourseID" class="btn btn-warning">Details</a>
+                        <a asp-controller="Course" asp-action="Enroll" class="btn btn-secondary">Enroll</a>
+                        <a asp-controller="Course" asp-action="Edit" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Course" asp-action="Delete" asp-route-id="@obj.CourseID" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
+
             }
 
         </tbody>

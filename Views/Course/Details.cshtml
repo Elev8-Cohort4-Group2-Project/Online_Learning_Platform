@@ -1,0 +1,26 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container">
+    <div class="row">
+        <!-- Column for the image (left side) -->
+        <div class="col-md-5">
+            <img src="@Model.ImageURL" class="img-fluid" alt="Course Image">
+        </div>
+
+        <!-- Column for course name, description, and instructor (right side) -->
+        <div class="col-md-7">
+            <h1>@Model.Title</h1>
+            <p>@Model.Description</p>
+            <p><em>Instructor: <strong>@ViewData["InstructorName"]</strong></em></p>
+            <!-- Add more course details here -->
+            <!-- Enroll button (centered at the bottom) -->
+            <div class="text-center">
+                <a asp-controller="Course" asp-action="Enroll" asp-route-id="@Model.CourseID" class="btn btn-primary">Enroll</a>
+            </div>
+        </div>
+    </div>
+</div>

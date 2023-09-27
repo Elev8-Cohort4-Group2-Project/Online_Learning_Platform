@@ -1,0 +1,16 @@
+﻿@model List<User>
+
+<h1>Admin Dashboard</h1>
+
+
+<div class="admin-features">
+    <h2>Admin Features</h2>
+    <ul>
+        <li>
+            <a asp-controller="Course" asp-action="Index" class="btn btn-success">Manage Courses</a>
+        </li>
+        <li>
+            <a asp-controller="Admin" asp-action="ManageUser" class="btn btn-info">Manage Users</a>
+        </li>
+    </ul>
+</div>

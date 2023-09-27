@@ -1,0 +1,33 @@
+﻿@model dynamic
+
+<h1>Admin Dashboard</h1>
+<br />
+<h3>User Table</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var studentData in Model.Users) {
+            <tr>
+                <td>@studentData.FirstName</td>
+                <td>@studentData.LastName</td> 
+                <td>@((await Model.UserManager.GetRolesAsync(studentData))[0])</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="Profile" class="btn btn-primary">View Profile</a>
+                    <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@studentData.Id" class="btn btn-danger">Remove User</a>
+                </td>
+                <!-- Common admin actions for each student -->
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -25,7 +25,7 @@ namespace LMS_Clone.Models {
         public virtual Assignment Assignment { get; set; }
 
         [ForeignKey("Course")] // Foreign Key
-        public int CourseID { get; set; }
+        public int? CourseID { get; set; }
         public virtual Course Course { get; set; }
     }
 }

@@ -24,11 +24,11 @@ namespace LMS_Clone.Migrations
 
             modelBuilder.Entity("LMS_Clone.Models.Assignment", b =>
                 {
-                    b.Property<int>("assignmentId")
+                    b.Property<int>("AssignmentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("assignmentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentID"));
 
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
@@ -54,7 +54,7 @@ namespace LMS_Clone.Migrations
                     b.Property<DateTime>("updatedTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("assignmentId");
+                    b.HasKey("AssignmentID");
 
                     b.ToTable("Assignment");
                 });
@@ -77,16 +77,13 @@ namespace LMS_Clone.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("InstructorID")
+                    b.Property<string>("InstructorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("OverallScore")
@@ -111,7 +108,7 @@ namespace LMS_Clone.Migrations
 
                     b.HasKey("CourseID");
 
-                    b.HasIndex("InstructorID");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Courses");
                 });
@@ -127,7 +124,8 @@ namespace LMS_Clone.Migrations
                     b.Property<int>("AssignmentID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseID")
+                    b.Property<int?>("CourseID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -635,12 +633,6 @@ namespace LMS_Clone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
                     b.HasDiscriminator().HasValue("User");
                 });
 
@@ -648,7 +640,9 @@ namespace LMS_Clone.Migrations
                 {
                     b.HasOne("LMS_Clone.Models.User", "Instructor")
                         .WithMany()
-                        .HasForeignKey("InstructorID");
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Instructor");
                 });
@@ -658,13 +652,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.Assignment", "Assignment")
                         .WithMany()
                         .HasForeignKey("AssignmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.Course", "Course")
                         .WithMany("CourseAssignments")
                         .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Assignment");
@@ -677,13 +671,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.Course", "Course")
                         .WithMany("CourseEnrollments")
                         .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.User", "Student")
                         .WithMany()
                         .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -696,13 +690,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.Course", "Course")
                         .WithMany("CourseResources")
                         .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.Resource", "Resource")
                         .WithMany()
                         .HasForeignKey("ResourceID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -715,7 +709,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.Lesson", "Lesson")
                         .WithMany("Questions")
                         .HasForeignKey("LessonID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Lesson");
@@ -726,7 +720,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.Lesson", "Lesson")
                         .WithMany("Resources")
                         .HasForeignKey("LessonID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Lesson");
@@ -737,13 +731,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("LMS_Clone.Models.CourseAssignment", "CourseAssignment")
                         .WithMany()
                         .HasForeignKey("AssignmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.User", "Student")
                         .WithMany()
                         .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("CourseAssignment");
@@ -756,7 +750,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -765,7 +759,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -774,7 +768,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -783,13 +777,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -798,7 +792,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
