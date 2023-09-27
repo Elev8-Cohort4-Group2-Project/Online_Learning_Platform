@@ -36,13 +36,23 @@ namespace LMS_Clone.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-      
+        public IActionResult Edit(int? id) {
+            Course course = _context.Courses.Find(id);
+            return View(course);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Course course) {
+            course.InstructorId = (await _userManager.GetUserAsync(User)).Id;
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
 
 
 
 
-
-        public  IActionResult Delete(int id) {
+        public IActionResult Delete(int id) {
             Course course = _context.Courses.Find(id);
             _context.Courses.Remove(course);
             _context.SaveChanges();
@@ -55,9 +65,9 @@ namespace LMS_Clone.Controllers {
             CourseEnrollment enrollment = new CourseEnrollment();
             enrollment.CourseID = id;
             enrollment.StudentID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            enrollment.CompletionStatus = "0";
-            enrollment.Grade = "0";
-            enrollment.RegistrationStatus = "Registered";
+            enrollment.CompletionStatus = "";
+            enrollment.Grade = "";
+            enrollment.RegistrationStatus = "";
             enrollment.Remark = "";
             _context.CourseEnrollments.Add(enrollment);
             _context.SaveChanges();

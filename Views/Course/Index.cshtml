@@ -23,7 +23,7 @@
                     <td>
                         <a asp-controller="Course" asp-action="Details" asp-route-id="@obj.CourseID" class="btn btn-warning">Details</a>
                         <a asp-controller="Course" asp-action="Enroll" class="btn btn-secondary">Enroll</a>
-                        <a asp-controller="Course" asp-action="Edit" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Course" asp-action="Edit" asp-route-id ="@obj.CourseID" class="btn btn-primary">Edit</a>
                         <a asp-controller="Course" asp-action="Delete" asp-route-id="@obj.CourseID" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
