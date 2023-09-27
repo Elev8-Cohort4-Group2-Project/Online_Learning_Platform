@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230926214415_initial")]
-    partial class initial
+    [Migration("20230927031324_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -678,7 +678,7 @@ namespace LMS_Clone.Migrations
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.User", "Student")
-                        .WithMany()
+                        .WithMany("CourseEnrollments")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -813,6 +813,11 @@ namespace LMS_Clone.Migrations
                     b.Navigation("Questions");
 
                     b.Navigation("Resources");
+                });
+
+            modelBuilder.Entity("LMS_Clone.Models.User", b =>
+                {
+                    b.Navigation("CourseEnrollments");
                 });
 #pragma warning restore 612, 618
         }

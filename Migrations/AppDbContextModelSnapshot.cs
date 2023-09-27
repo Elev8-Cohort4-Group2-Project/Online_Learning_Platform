@@ -675,7 +675,7 @@ namespace LMS_Clone.Migrations
                         .IsRequired();
 
                     b.HasOne("LMS_Clone.Models.User", "Student")
-                        .WithMany()
+                        .WithMany("CourseEnrollments")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -810,6 +810,11 @@ namespace LMS_Clone.Migrations
                     b.Navigation("Questions");
 
                     b.Navigation("Resources");
+                });
+
+            modelBuilder.Entity("LMS_Clone.Models.User", b =>
+                {
+                    b.Navigation("CourseEnrollments");
                 });
 #pragma warning restore 612, 618
         }

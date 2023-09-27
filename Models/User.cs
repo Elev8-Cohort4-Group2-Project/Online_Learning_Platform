@@ -11,5 +11,7 @@ namespace LMS_Clone.Models {
         public string? FirstName { get; set; }
         [Required, DisplayName("Last Name")]
         public string? LastName { get; set; }
+
+        public ICollection<CourseEnrollment> CourseEnrollments { get; set; }
     }
 }

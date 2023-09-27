@@ -61,10 +61,32 @@ namespace LMS_Clone.Controllers {
             _userManager.DeleteAsync(user);
             return RedirectToAction(nameof(ManageUser));
         }
+    
+        /*
+      
+        public async Task<IActionResult> Profile(string id) {
+            {
+                // Retrieve a list of students and the courses they are enrolled in
 
-        public IActionResult Profile() {
-            return View();
+                var studentsWithCourses = await _context.Users
+                    .Include(u => u.CourseEnrollments)
+                    .Where(u => u.Id == id)
+                    .Select(user => new DashboardViewModel {
+                        Student = user,
+                        EnrolledCourses = user.CourseEnrollments.ToList()
+                    })
+                    .ToListAsync();
+
+                return View(studentsWithCourses);
+            }
         }
+       
+        */
+        public class DashboardViewModel {
+            public User Student { get; set; }
+            public List<Course> EnrolledCourses { get; set; }
 
+
+        }
     }
 }
