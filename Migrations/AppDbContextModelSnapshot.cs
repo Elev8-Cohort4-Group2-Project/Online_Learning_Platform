@@ -24,89 +24,60 @@ namespace LMS_Clone.Migrations
 
             modelBuilder.Entity("LMS_Clone.Models.Assignment", b =>
                 {
-                    b.Property<int>("AssignmentID")
+                    b.Property<int>("AssignmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentID"));
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("description")
-                        .HasColumnType("int");
-
-                    b.Property<int>("dueDate")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("title")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("AssignmentID");
-
-                    b.ToTable("Assignment");
-                });
-
-            modelBuilder.Entity("LMS_Clone.Models.Course", b =>
-                {
-                    b.Property<int>("CourseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseID"));
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentId"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<DateTime?>("DueDate")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("InstructorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("OverallScore")
+                    b.Property<int?>("LessonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("AssignmentId");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.HasIndex("LessonId");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
+                    b.ToTable("Assignments");
+                });
 
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
+            modelBuilder.Entity("LMS_Clone.Models.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasKey("CourseID");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("InstructorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseId");
 
                     b.HasIndex("InstructorId");
 
@@ -115,304 +86,154 @@ namespace LMS_Clone.Migrations
 
             modelBuilder.Entity("LMS_Clone.Models.CourseAssignment", b =>
                 {
-                    b.Property<int>("CourseAssignmentID")
+                    b.Property<int>("CourseAssignmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseAssignmentID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseAssignmentId"));
 
-                    b.Property<int>("AssignmentID")
+                    b.Property<int?>("AssignmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CourseID")
-                        .IsRequired()
+                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("OverallScore")
+                    b.Property<int?>("OverallScore")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("CourseAssignmentId");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.HasIndex("AssignmentId");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
+                    b.HasIndex("CourseId");
 
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CourseAssignmentID");
-
-                    b.HasIndex("AssignmentID");
-
-                    b.HasIndex("CourseID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("CourseAssignments");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.CourseEnrollment", b =>
                 {
-                    b.Property<int>("CourseEnrollmentID")
+                    b.Property<int>("CourseEnrollmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseEnrollmentID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseEnrollmentId"));
 
-                    b.Property<string>("CompletionStatus")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int?>("CompletionStatus")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CourseID")
+                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<string>("Grade")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("RegistrationStatus")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remark")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentID")
-                        .IsRequired()
+                    b.Property<string>("StudentId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("CourseEnrollmentId");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.HasIndex("CourseId");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CourseEnrollmentID");
-
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("StudentID");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("CourseEnrollments");
                 });
 
-            modelBuilder.Entity("LMS_Clone.Models.CourseResource", b =>
-                {
-                    b.Property<int>("CourseResourceID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseResourceID"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResourceID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ResourceType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CourseResourceID");
-
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("ResourceID");
-
-                    b.ToTable("CourseResources");
-                });
-
             modelBuilder.Entity("LMS_Clone.Models.Lesson", b =>
                 {
-                    b.Property<int>("LessonID")
+                    b.Property<int>("LessonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessonID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessonId"));
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
+                    b.Property<int?>("Number")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("LessonId");
 
-                    b.HasKey("LessonID");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Question", b =>
                 {
-                    b.Property<int>("QuestionID")
+                    b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"));
 
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CorrectOption")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("LessonID")
+                    b.Property<int?>("AssignmentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CorrectOption")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Option1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option4")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("QuestionText")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("QuestionId");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("QuestionID");
-
-                    b.HasIndex("LessonID");
+                    b.HasIndex("AssignmentId");
 
                     b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Resource", b =>
                 {
-                    b.Property<int>("ResourceID")
+                    b.Property<int>("ResourceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceId"));
 
                     b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LessonID")
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LessonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("ResourceId");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.HasIndex("CourseId");
 
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ResourceID");
-
-                    b.HasIndex("LessonID");
+                    b.HasIndex("LessonId");
 
                     b.ToTable("Resources");
-                });
-
-            modelBuilder.Entity("LMS_Clone.Models.StudentCourseAssignment", b =>
-                {
-                    b.Property<int>("StudentCourseAssignmentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentCourseAssignmentID"));
-
-                    b.Property<int>("AssignmentID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("creationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("updatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("StudentCourseAssignmentID");
-
-                    b.HasIndex("AssignmentID");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("StudentCourseAssignments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -636,13 +457,18 @@ namespace LMS_Clone.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("LMS_Clone.Models.Assignment", b =>
+                {
+                    b.HasOne("LMS_Clone.Models.Lesson", null)
+                        .WithMany("Assignments")
+                        .HasForeignKey("LessonId");
+                });
+
             modelBuilder.Entity("LMS_Clone.Models.Course", b =>
                 {
                     b.HasOne("LMS_Clone.Models.User", "Instructor")
                         .WithMany()
-                        .HasForeignKey("InstructorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("InstructorId");
 
                     b.Navigation("Instructor");
                 });
@@ -650,16 +476,16 @@ namespace LMS_Clone.Migrations
             modelBuilder.Entity("LMS_Clone.Models.CourseAssignment", b =>
                 {
                     b.HasOne("LMS_Clone.Models.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany("CourseAssignments")
+                        .HasForeignKey("AssignmentId");
 
                     b.HasOne("LMS_Clone.Models.Course", "Course")
                         .WithMany("CourseAssignments")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("LMS_Clone.Models.User", null)
+                        .WithMany("CourseAssignments")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Assignment");
 
@@ -670,79 +496,46 @@ namespace LMS_Clone.Migrations
                 {
                     b.HasOne("LMS_Clone.Models.Course", "Course")
                         .WithMany("CourseEnrollments")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("LMS_Clone.Models.User", "Student")
                         .WithMany("CourseEnrollments")
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Course");
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("LMS_Clone.Models.CourseResource", b =>
+            modelBuilder.Entity("LMS_Clone.Models.Lesson", b =>
                 {
                     b.HasOne("LMS_Clone.Models.Course", "Course")
-                        .WithMany("CourseResources")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Clone.Models.Resource", "Resource")
                         .WithMany()
-                        .HasForeignKey("ResourceID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
-
-                    b.Navigation("Resource");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Question", b =>
                 {
-                    b.HasOne("LMS_Clone.Models.Lesson", "Lesson")
+                    b.HasOne("LMS_Clone.Models.Assignment", "Assignment")
                         .WithMany("Questions")
-                        .HasForeignKey("LessonID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("AssignmentId");
 
-                    b.Navigation("Lesson");
+                    b.Navigation("Assignment");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Resource", b =>
                 {
+                    b.HasOne("LMS_Clone.Models.Course", null)
+                        .WithMany("Resources")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("LMS_Clone.Models.Lesson", "Lesson")
                         .WithMany("Resources")
-                        .HasForeignKey("LessonID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("LessonId");
 
                     b.Navigation("Lesson");
-                });
-
-            modelBuilder.Entity("LMS_Clone.Models.StudentCourseAssignment", b =>
-                {
-                    b.HasOne("LMS_Clone.Models.CourseAssignment", "CourseAssignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Clone.Models.User", "Student")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CourseAssignment");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -750,7 +543,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -759,7 +552,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -768,7 +561,7 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -777,13 +570,13 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -792,8 +585,15 @@ namespace LMS_Clone.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LMS_Clone.Models.Assignment", b =>
+                {
+                    b.Navigation("CourseAssignments");
+
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Course", b =>
@@ -802,18 +602,20 @@ namespace LMS_Clone.Migrations
 
                     b.Navigation("CourseEnrollments");
 
-                    b.Navigation("CourseResources");
+                    b.Navigation("Resources");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Lesson", b =>
                 {
-                    b.Navigation("Questions");
+                    b.Navigation("Assignments");
 
                     b.Navigation("Resources");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.User", b =>
                 {
+                    b.Navigation("CourseAssignments");
+
                     b.Navigation("CourseEnrollments");
                 });
 #pragma warning restore 612, 618

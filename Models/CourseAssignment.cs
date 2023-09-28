@@ -2,30 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace LMS_Clone.Models {
-    public class CourseAssignment : BaseEntity {
-        public CourseAssignment() {
-            isDeleted = false;
-            isActive = true;
-            creationTime = DateTime.Now;
-        }
+    public class CourseAssignment {
 
-        [Key] // Primary Key
-        public int CourseAssignmentID { get; set; }
+        [Key] 
+        public int CourseAssignmentId { get; set; }
+        public int? OverallScore { get; set; }
 
-        [MaxLength(100)] // Max Length 100 karakter
-        public string Title { get; set; }
+        public int? AssignmentId { get; set; }
+        public Assignment? Assignment { get; set; }
 
-        [MaxLength(500)] // Max Length 500 karakter
-        public string Description { get; set; }
-
-        public int OverallScore { get; set; }
-
-        [ForeignKey("Assignment")] // Foreign Key
-        public int AssignmentID { get; set; }
-        public virtual Assignment Assignment { get; set; }
-
-        [ForeignKey("Course")] // Foreign Key
-        public int? CourseID { get; set; }
-        public virtual Course Course { get; set; }
+        public int? CourseId { get; set; }
+        public Course? Course { get; set; }
     }
 }

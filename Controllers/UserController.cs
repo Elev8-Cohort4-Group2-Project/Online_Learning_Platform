@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS_Clone.Controllers {
-    public class CourseController : Controller {
-        private readonly AppDbContext? _context;
+    public class UserController : Controller {
+        private readonly AppDbContext _context;
 
-        public CourseController(AppDbContext context) {
+        public UserController(AppDbContext context) {
             _context = context;
         }
-
 
         public IActionResult Index() {
             return View();
         }
-
 
         public IActionResult Create() {
             return View();
@@ -23,22 +21,10 @@ namespace LMS_Clone.Controllers {
             return View();
         }
 
-       public IActionResult Delete() {
+        public IActionResult Delete() {
             return View();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 
