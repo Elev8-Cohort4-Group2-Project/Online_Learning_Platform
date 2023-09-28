@@ -169,6 +169,7 @@ namespace LMS_Clone.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    EnrollmentCount = table.Column<int>(type: "int", nullable: false),
                     InstructorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

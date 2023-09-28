@@ -13,8 +13,9 @@ namespace LMS_Clone.Models {
         [Required]
         public string? Category { get; set; }
         public byte[]? Image { get; set; }
+        public int EnrollmentCount { get;set; }
 
-        [ForeignKey("Instructor")] // Foreign Key
+        [ForeignKey("Instructor")] 
         public string? InstructorId { get; set; }
         public User? Instructor { get; set; }
         
@@ -22,5 +23,10 @@ namespace LMS_Clone.Models {
         public ICollection<Resource>? Resources { get; set; }
         public ICollection<CourseAssignment>? CourseAssignments { get; set; }
         public ICollection<CourseEnrollment>? CourseEnrollments { get; set; }
+
+
+        public Course() {
+            EnrollmentCount = 0;
+        }
     }
 }

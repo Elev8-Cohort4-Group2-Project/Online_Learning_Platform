@@ -1,4 +1,5 @@
 ﻿using LMS_Clone.Data;
+using LMS_Clone.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS_Clone.Controllers {
@@ -25,6 +26,9 @@ namespace LMS_Clone.Controllers {
             return View();
         }
     
+        public IActionResult Profile(string id) {
+            return View(_context.Users.Find(id));
+        }
 
 
 

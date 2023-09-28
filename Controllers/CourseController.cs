@@ -1,5 +1,8 @@
 ﻿using LMS_Clone.Data;
+using LMS_Clone.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Clone.Controllers {
     public class CourseController : Controller {
@@ -11,7 +14,7 @@ namespace LMS_Clone.Controllers {
 
 
         public IActionResult Index() {
-            return View();
+            return View(_context.Courses.ToList());
         }
 
 
@@ -19,16 +22,54 @@ namespace LMS_Clone.Controllers {
             return View();
         }
 
-        public IActionResult Edit() {
-            return View();
+        [HttpPost]
+        public IActionResult Create(Course course, IFormFile file) {
+            course.InstructorId = User.Identity.GetUserId();
+
+            if (file != null && file.Length > 0) {
+                using (var stream = new MemoryStream()) {
+                    file.CopyTo(stream);
+                    course.Image = stream.ToArray();
+                }
+            }
+
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-       public IActionResult Delete() {
-            return View();
+        public IActionResult Edit(int id) {
+            Course course = _context.Courses.Find(id);
+            return View(course);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Course course) {
+            _context.Courses.Update(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+       public IActionResult Delete(int id) {
+            Course course = _context.Courses.Find(id);
+            _context.Courses.Remove(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
 
+        public IActionResult Details(int id) {
+            return View(_context.Courses.Find(id));
+        }
 
+        public IActionResult Enroll(int id) {
+            CourseEnrollment enrollment = new CourseEnrollment();
+            enrollment.CourseId = id;
+            enrollment.StudentId = User.Identity.GetUserId();
+            _context.CourseEnrollments.Add(enrollment);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
 
 
 

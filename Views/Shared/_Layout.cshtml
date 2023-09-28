@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <div class="container-fluid">
+        <div class="container-fluid mb-4">
             <nav class="navbar navbar-expand navbar-primary navbar-dark bg-success">
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <ul class="navbar-nav">
@@ -19,9 +19,15 @@
                         </li>
                         @if (User.IsInRole(StaticData.Role_Admin)) {
                             <li class="nav-item ml-5">
-                                <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Admin Panel</a>
+                                <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Content Management</a>
                             </li>
-                            
+
+                        }
+
+                        @if (User.IsInRole(StaticData.Role_Student)) {
+                            <li class="nav-item ml-5">
+                                <a asp-controller="Profile" asp-action="Index" class="btn btn-primary">My Courses</a>
+                            </li>
                         }
                     </ul>
                     <div>

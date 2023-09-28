@@ -1,0 +1,26 @@
+﻿@model Course
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            @{var imageData = Model.Image != null
+                                      ? Convert.ToBase64String(Model.Image)
+                                      : null;
+            }
+            @if (!string.IsNullOrEmpty(imageData)) {
+                <img src="data:image/jpeg;base64,@imageData" alt="Image" class="card-img-top">
+            }
+            else {
+                <p>No image available</p>
+            }
+        </div>
+        <div class="col-6">
+            <p>@Model.Description</p>
+        </div>
+        <div class="col-3">
+            <a asp-controller="course" asp-action="enroll" asp-route-id="@Model.CourseId" class="btn btn-success btn-lg">Enroll Now!</a>
+        </div>
+    </div>
+
+
+</div>

@@ -1,1 +1,38 @@
-﻿
+﻿@model IList<Course>
+
+
+<h3>Available Courses</h3>
+<div class="container-fluid mt-3">
+    <div class="row">
+        @foreach (var obj in Model) {
+            <div class="col-4">
+                    
+                    <div class="card">
+
+                        @{var imageData = obj.Image != null
+                                ? Convert.ToBase64String(obj.Image)
+                                : null;
+                        }
+                        @if (!string.IsNullOrEmpty(imageData)) {
+                            <img src="data:image/jpeg;base64,@imageData" alt="Image" class="card-img-top">
+                        }
+                        else {
+                            <p>No image available</p>
+                        }
+                    <div class="card-body">
+
+                        <h5 class="card-title">@obj.Title</h5>
+                        <p class="card-text">@obj.Description</p>
+                        <a asp-controller="Course" asp-action="Details" asp-route-id="@obj.CourseId" class="stretched-link"></a>
+                    </div>
+                </div>
+                    
+            </div>
+        }
+
+    </div>
+</div>
+
+
+    
+

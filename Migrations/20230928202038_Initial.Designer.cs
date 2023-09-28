@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230928122626_Initial")]
+    [Migration("20230928202038_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -69,6 +69,9 @@ namespace LMS_Clone.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EnrollmentCount")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
