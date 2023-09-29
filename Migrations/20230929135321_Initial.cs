@@ -258,17 +258,11 @@ namespace LMS_Clone.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LessonId = table.Column<int>(type: "int", nullable: true),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
+                    LessonId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Resources", x => x.ResourceId);
-                    table.ForeignKey(
-                        name: "FK_Resources_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "CourseId");
                     table.ForeignKey(
                         name: "FK_Resources_Lessons_LessonId",
                         column: x => x.LessonId,
@@ -414,11 +408,6 @@ namespace LMS_Clone.Migrations
                 name: "IX_Questions_AssignmentId",
                 table: "Questions",
                 column: "AssignmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Resources_CourseId",
-                table: "Resources",
-                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resources_LessonId",

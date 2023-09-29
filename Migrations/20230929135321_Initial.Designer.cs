@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230928202038_Initial")]
+    [Migration("20230929135321_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -224,9 +224,6 @@ namespace LMS_Clone.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LessonId")
                         .HasColumnType("int");
 
@@ -234,8 +231,6 @@ namespace LMS_Clone.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResourceId");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("LessonId");
 
@@ -516,7 +511,7 @@ namespace LMS_Clone.Migrations
             modelBuilder.Entity("LMS_Clone.Models.Lesson", b =>
                 {
                     b.HasOne("LMS_Clone.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("Lessons")
                         .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
@@ -533,10 +528,6 @@ namespace LMS_Clone.Migrations
 
             modelBuilder.Entity("LMS_Clone.Models.Resource", b =>
                 {
-                    b.HasOne("LMS_Clone.Models.Course", null)
-                        .WithMany("Resources")
-                        .HasForeignKey("CourseId");
-
                     b.HasOne("LMS_Clone.Models.Lesson", "Lesson")
                         .WithMany("Resources")
                         .HasForeignKey("LessonId");
@@ -608,7 +599,7 @@ namespace LMS_Clone.Migrations
 
                     b.Navigation("CourseEnrollments");
 
-                    b.Navigation("Resources");
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("LMS_Clone.Models.Lesson", b =>

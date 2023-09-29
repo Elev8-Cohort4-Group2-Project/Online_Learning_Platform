@@ -1,0 +1,13 @@
+﻿@model Lesson
+
+<form method="post">
+    <label asp-for="Number"></label>
+    <input asp-for="Number" />
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+
+    <input type="hidden" asp-for="CourseId" value="@ViewBag.CourseId" />
+
+    <input type="submit" />
+</form>

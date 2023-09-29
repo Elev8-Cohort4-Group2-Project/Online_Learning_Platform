@@ -20,7 +20,7 @@ namespace LMS_Clone.Models {
         public User? Instructor { get; set; }
         
 
-        public ICollection<Resource>? Resources { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
         public ICollection<CourseAssignment>? CourseAssignments { get; set; }
         public ICollection<CourseEnrollment>? CourseEnrollments { get; set; }
 

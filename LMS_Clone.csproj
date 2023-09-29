@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\image\" />
+    <None Include="wwwroot\image\banner.png" />
   </ItemGroup>
 
 </Project>

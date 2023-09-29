@@ -15,6 +15,7 @@ namespace LMS_Clone.Controllers {
 
 
         public IActionResult Index() {
+            
             return View(_context.Courses.ToList());
         }
 
@@ -60,11 +61,15 @@ namespace LMS_Clone.Controllers {
 
 
         public IActionResult Details(int id) {
-            UserCourseSingle userCourse = new UserCourseSingle {
-                User = _context.Users.Find(User.Identity.GetUserId()),
-                Course = _context.Courses.Find(id)
-            };
-            return View(_context.Courses.Find(id));
+            var lessons = _context.Courses
+                    .Include(o => o.Lessons)
+                    .Where(o => o.CourseId == id)
+                    .SelectMany(o => o.Lessons)
+                    .ToList();
+            var course = _context.Courses.Find(id);
+
+            ViewBag.Lessons = lessons;
+            return View(course);
         }
 
         public IActionResult Enroll(int id) {
