@@ -1,5 +1,6 @@
 ﻿using LMS_Clone.Data;
 using LMS_Clone.Models;
+using LMS_Clone.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,10 @@ namespace LMS_Clone.Controllers {
 
 
         public IActionResult Details(int id) {
+            UserCourseSingle userCourse = new UserCourseSingle {
+                User = _context.Users.Find(User.Identity.GetUserId()),
+                Course = _context.Courses.Find(id)
+            };
             return View(_context.Courses.Find(id));
         }
 
