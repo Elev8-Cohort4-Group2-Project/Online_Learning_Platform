@@ -1,18 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS_Clone.Models {
-    public class Assignment : BaseEntity {
-        public Assignment() {
-            isActive = true;
-            isDeleted = false;
-            creationTime = DateTime.Now;
-        }
-
+    public class Assignment {
         [Key]
-        public int assignmentId { get; set; }
-        public int CourseID { get; set; }
-        public int title { get; set; }
-        public int description { get; set; }
-        public int dueDate { get; set; }
+        public int AssignmentId { get; set; }
+        [Required]
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        [Required]
+        public DateTime? DueDate { get; set; }
+
+        public ICollection<Question>? Questions { get; set; }
+        public ICollection<CourseAssignment>? CourseAssignments { get; set; }
     }
 }

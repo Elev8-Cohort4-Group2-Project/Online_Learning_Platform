@@ -1,0 +1,17 @@
+﻿@model Course
+
+<form method="post" enctype="multipart/form-data">
+    <label asp-for="Title"></label>
+    <input asp-for="Title" />
+
+    <label asp-for="Description"></label>
+    <input asp-for="Description" />
+
+    <label asp-for="Category"></label>
+    <input asp-for="Category" />
+
+    <label asp-for="Image"></label>
+    <input type="file" id="file" name="file" accept="image/*"/>
+
+    <input type="submit" />
+</form>

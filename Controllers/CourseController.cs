@@ -1,57 +1,107 @@
 ﻿using LMS_Clone.Data;
 using LMS_Clone.Models;
+using LMS_Clone.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Clone.Controllers {
+    public class CourseController : Controller {
+        private readonly AppDbContext? _context;
 
-    public class CoursesController : Controller {
-        private readonly AppDbContext _context;
-
-        public CoursesController(AppDbContext context) {
+        public CourseController(AppDbContext context) {
             _context = context;
         }
 
-        public async Task<IActionResult> Index() {
-            // Retrieve all courses from the database
-            var courses = await _context.Courses.ToListAsync();
 
-            return View("~/Views/Home/Index.cshtml", courses);
+        public IActionResult Index() {
+            
+            return View(_context.Courses.ToList());
         }
 
-        /*
 
-        public async Task<IActionResult> Details(int? id) {
-            if (id == null) {
-                return NotFound();
+        public IActionResult Create() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Course course, IFormFile file) {
+            course.InstructorId = User.Identity.GetUserId();
+
+            if (file != null && file.Length > 0) {
+                using (var stream = new MemoryStream()) {
+                    file.CopyTo(stream);
+                    course.Image = stream.ToArray();
+                }
             }
 
-            var course = await _context.Courses
-                .FirstOrDefaultAsync(m => m.CourseID == id);
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-            if (course == null) {
-                return NotFound();
-            }
-
-            
-
-            //int userID;  //int.TryParse(u.Id, out userId) && userId == course.InstructorID
-            // Fetch the instructor's name from the Users table based on the InstructorID
-            var instructorName = await _context.Users
-                .Where(u => u.Id == course.InstructorID)
-                .Select(u => u.UserName)
-                .FirstOrDefaultAsync();
-
-            
-
-            // Pass both the course and instructor name to the view
-            ViewData["InstructorName"] = instructorName ?? "N/A";
+        public IActionResult Edit(int id) {
+            Course course = _context.Courses.Find(id);
             return View(course);
         }
 
-        */
+        [HttpPost]
+        public IActionResult Edit(Course course) {
+            _context.Courses.Update(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+       public IActionResult Delete(int id) {
+            Course course = _context.Courses.Find(id);
+            _context.Courses.Remove(course);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Details(int id) {
+            var lessons = _context.Courses
+                    .Include(o => o.Lessons)
+                    .Where(o => o.CourseId == id)
+                    .SelectMany(o => o.Lessons)
+                    .ToList();
+            var course = _context.Courses.Find(id);
+
+            ViewBag.Lessons = lessons;
+            return View(course);
+        }
+
+        public IActionResult Enroll(int id) {
+            CourseEnrollment enrollment = new CourseEnrollment();
+            enrollment.CourseId = id;
+            enrollment.StudentId = User.Identity.GetUserId();
+            _context.CourseEnrollments.Add(enrollment);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-
-
-
 }

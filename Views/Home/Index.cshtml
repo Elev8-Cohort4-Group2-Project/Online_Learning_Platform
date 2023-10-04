@@ -1,32 +1,52 @@
-﻿@model List<LMS_Clone.Models.Course>
+﻿@model IList<Course>
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-<style>
-    /* Custom CSS for controlling image size */
-    .card-img-custom {
-        max-height: 200px;
-        width: auto;
-    }
-</style>
 
-<div class="container">
-    <div class="row">
 
-        @foreach (var item in Model) {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://media.istockphoto.com/id/1265965042/tr/vekt%C3%B6r/matematik-teorisi-s%C4%B1n%C4%B1f-tebe%C5%9Fir-tahtas%C4%B1nda-matematik-hesab%C4%B1-cebir-ve-geometri-bilimi-el.jpg?s=1024x1024&w=is&k=20&c=aHp7kkRESOKqyVkp30-0l14mnLWA8z9fYKniKf6HT60=" class="card-img-top card-img-custom" alt="Image Description">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Title</h5>
-                        <p class="card-text">@item.Description</p>
-                        <a asp-controller="Home" asp-action="Details" asp-route-obj="Course"  class="btn btn-primary">Learn More</a>
 
-                    </div>
+
+
+    <div class="container-fluid mt-3">
+
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="~/image/banner.png" alt="First slide">
                 </div>
             </div>
-        }
+        </div>
+        <h3>Available Courses</h3>
+        <div class="row">
+            @foreach (var obj in Model) {
+                <div class="col-4">
+
+                    <div class="card">
+
+                        @{var imageData = obj.Image != null
+                                    ? Convert.ToBase64String(obj.Image)
+                                    : null;
+                        }
+                        @if (!string.IsNullOrEmpty(imageData)) {
+                            <img src="data:image/jpeg;base64,@imageData" alt="Image" class="card-img-top">
+                        }
+                        else {
+                            <p>No image available</p>
+                        }
+                        <div class="card-body">
+
+                            <h5 class="card-title">@obj.Title</h5>
+                            <p class="card-text">@obj.Description</p>
+                            <a asp-controller="Course" asp-action="Details" asp-route-id="@obj.CourseId" class="stretched-link"></a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
     </div>
-</div>
+
+
+    
+

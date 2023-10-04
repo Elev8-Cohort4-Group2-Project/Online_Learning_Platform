@@ -1,38 +1,32 @@
-﻿using LMS_Clone.Data;
+﻿ using LMS_Clone.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMS_Clone.Models {
-    public class Course : BaseEntity {
+    public class Course  {
+        [Key]
+        public int CourseId { get; set; }
+        [Required]
+        public string? Title { get; set; }
+        [Required]
+        public string? Description { get; set; }
+        [Required]
+        public string? Category { get; set; }
+        public byte[]? Image { get; set; }
+        public int EnrollmentCount { get;set; }
+
+        [ForeignKey("Instructor")] 
+        public string? InstructorId { get; set; }
+        public User? Instructor { get; set; }
+        
+
+        public ICollection<Lesson> Lessons { get; set; }
+        public ICollection<CourseAssignment>? CourseAssignments { get; set; }
+        public ICollection<CourseEnrollment>? CourseEnrollments { get; set; }
+
+
         public Course() {
-            isDeleted = false;
-            isActive = true;
-            creationTime = DateTime.Now;
+            EnrollmentCount = 0;
         }
-
-        [Key] // Primary Key
-        public int CourseID { get; set; }
-
-        [MaxLength(100)] // Max Length 100 karakter
-        public string Title { get; set; }
-
-        [MaxLength(500)] // Max Length 500 karakter
-        public string Description { get; set; }
-
-        [MaxLength(50)] // Max Length 50 karakter
-        public string Category { get; set; }
-
-        [MaxLength(200)] // Max Length 200 karakter
-        public string ImageURL { get; set; }
-
-        public int OverallScore { get; set; }
-
-        [ForeignKey("InstructorID")] // Foreign Key
-        public virtual User Instructor { get; set; }
-        public string Id { get; set; }
-
-        public ICollection<CourseResource> CourseResources { get; set; }
-        public ICollection<CourseAssignment> CourseAssignments { get; set; }
-        public ICollection<CourseEnrollment> CourseEnrollments { get; set; }
     }
 }

@@ -1,27 +1,36 @@
-﻿@model List<Course>
+﻿@model IList<Course>
 
-<div class="container">
-    <table class="table table-bordered">
-        <thead>
+<a asp-controller="course" asp-action="create" class="btn btn-primary">Create</a>
+
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody class="thead-light">
+        @foreach (var obj in Model) {
             <tr>
-                <th>Course ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
+
+                <td>@obj.CourseId</td>
+                <td>@obj.Title</td>
+                <td>@obj.Description</td>
+                <td>@obj.Category</td>
+                <td>
+                    <div>
+                        <a asp-controller="course" asp-action="edit" asp-route-couse="@obj" class="btn btn-warning">Edit</a>
+                        <a asp-controller="course" asp-action="delete" asp-route-id="@obj.CourseId" class="btn btn-danger">Delete</a>
+                    </div>
+
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model) {
-                <tr>
-                    <td>@obj.CourseID</td>
-                    <td>@obj.Title</td>
-                    <td>@obj.Description</td>
-                    <td>@obj.Category</td>
-                </tr>
-            }
-
+        }
         </tbody>
-    </table>
 
-</div>
-
+</table>

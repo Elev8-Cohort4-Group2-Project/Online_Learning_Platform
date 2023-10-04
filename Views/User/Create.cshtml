@@ -1,0 +1,23 @@
+﻿@model User
+
+<form method="post" enctype="multipart/form-data">
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" />
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+
+    <label for="password">Password</label>
+    <input name="password" />
+
+    <select name="role"class="form-select">
+        <option>Admin</option>
+        <option>Instructor</option>
+        <option>Student</option>
+    </select>
+
+    <input type="submit" />
+</form>

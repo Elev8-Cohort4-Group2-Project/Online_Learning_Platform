@@ -1,31 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+using LMS_Clone.Data;
+
 namespace LMS_Clone.Models {
-    public class Question : BaseEntity {
-        public Question() {
-            isDeleted = false;
-            isActive = true;
-            creationTime = DateTime.Now;
-        }
+    public class Question {
 
-        [Key] // Primary Key
-        public int QuestionID { get; set; }
 
-        [MaxLength(500)] // Max Length 500 karakter
-        public string QuestionText { get; set; }
+        [Key]
+        public int QuestionId { get; set; }
+        public string? QuestionText { get; set; }
+        public string? Option1 { get; set; }
+        public string? Option2 { get; set; }
+        public string? Option3 { get; set; }
+        public string? Option4 { get; set; }
+        public int? CorrectOption { get; set; }
 
-        [MaxLength(100)] // Max Length 100 karakter
-        public string Answer { get; set; }
-
-        // Options için Max Length belirtilmemiştir, çünkü bu bir liste olarak saklanacaktır.
-        //public List<string> Options { get; set; }
-
-        [MaxLength(100)] // Max Length 100 karakter
-        public string CorrectOption { get; set; }
-
-        [ForeignKey("Lesson")] // Foreign Key
-        public int LessonID { get; set; }
-        public virtual Lesson Lesson { get; set; }
+        public int? AssignmentId { get; set; }
+        public Assignment? Assignment { get; set; }
     }
 }
